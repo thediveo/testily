@@ -4,5 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"markdown.styles": [
+			"./.workspace/styles.css"
+		]
+	}
 }

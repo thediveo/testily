@@ -1,6 +1,16 @@
 # `testily`
 
-Weird test convenience helpers with odd names.
+![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
+
+A small collection of weird test convenience helpers with odd names, to aid in
+DRY. Preferably dot-imported as a simple DSL to make your unit tests more
+concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
+
+- package `tuples`: type-safe tuples packing and unpacking: `Pair`, `Triple`.
+- package `concur`: calling functions on new goroutines and signalling when
+  they've finished, optionally channeling their results back: `CloseWhenDone`,
+  `PassWhenDone`.
+- package `nothing`: `interface{}` has `any`, we have `Nothing` for `struct{}`.
 
 ## DevContainer
 
