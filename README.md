@@ -1,16 +1,28 @@
 # `testily`
 
+[![PkgGoDev](https://img.shields.io/badge/-reference-blue?logo=go&logoColor=white&labelColor=505050)](https://pkg.go.dev/github.com/thediveo/testily)
+[![License](https://img.shields.io/github/license/thediveo/testily)](https://img.shields.io/github/license/thediveo/testily)
+![build and test](https://github.com/thediveo/testily/actions/workflows/buildandtest.yaml/badge.svg?branch=master)
+![goroutines](https://img.shields.io/badge/go%20routines-not%20leaking-success)
+[![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/testily)](https://goreportcard.com/report/github.com/thediveo/testily)
 ![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 
 A small collection of weird test convenience helpers with odd names, to aid in
 DRY. Preferably dot-imported as a simple DSL to make your unit tests more
 concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
 
-- package `tuples`: type-safe tuples packing and unpacking: `Pair`, `Triple`.
-- package `concur`: calling functions on new goroutines and signalling when
-  they've finished, optionally channeling their results back: `CloseWhenDone`,
-  `PassWhenDone`.
-- package `nothing`: `interface{}` has `any`, we have `Nothing` for `struct{}`.
+- package [`tuples`](https://pkg.go.dev/github.com/thediveo/testily/tuples):
+  type-safe tuples packing and unpacking:
+  [`Pair`](https://pkg.go.dev/github.com/thediveo/testily/tuples#Pair),
+  [`Triple`](https://pkg.go.dev/github.com/thediveo/testily/tuples#Triple). Use
+  `PackPair(...)`, `Unpack()`, et cetera.
+- package [`concur`](https://pkg.go.dev/github.com/thediveo/testily/concur):
+  calling functions on new goroutines and signalling when they've finished,
+  optionally channeling their results back:
+  [`CloseWhenDone`](https://pkg.go.dev/github.com/thediveo/testily/concur#CloseWhenGone),
+  [`PassWhenDone`](https://pkg.go.dev/github.com/thediveo/testily/concur#PassWhenGone).
+- package [`nothing`](https://pkg.go.dev/github.com/thediveo/testily/nothing):
+  `interface{}` has `any`, we have `Nothing` for `struct{}`.
 
 ## DevContainer
 

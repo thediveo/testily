@@ -6,7 +6,7 @@
 	],
 	"settings": {
 		"markdown.styles": [
-			"./.workspace/styles.css"
+			"./.vscode/markdown-preview.css"
 		]
 	}
 }
