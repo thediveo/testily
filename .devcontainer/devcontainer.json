@@ -31,7 +31,8 @@
                 "dnut.rewrap-revived",
                 "brunnerh.insert-unicode",
                 "mhutchie.git-graph",
-                "ms-vscode.live-server"
+                "ms-vscode.live-server",
+                "github.vscode-github-actions"
             ]
         }
     }
