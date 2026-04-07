@@ -21,6 +21,9 @@ concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
   optionally channeling their results back:
   [`CloseWhenDone`](https://pkg.go.dev/github.com/thediveo/testily/concur#CloseWhenGone),
   [`PassWhenDone`](https://pkg.go.dev/github.com/thediveo/testily/concur#PassWhenGone).
+- package [`zero`](https://pkg.go.dev/github.com/thediveo/testily/zero):
+  [`Zero[T]()`](https://pkg.go.dev/github.com/thediveo/testily/zero#Zero) when
+  you want to be curt without explicit zero vars.
 - package [`nothing`](https://pkg.go.dev/github.com/thediveo/testily/nothing):
   `interface{}` has `any`, we have `Nothing` for `struct{}`.
 
