@@ -17,8 +17,13 @@ Package zero provides types zero values.
 */
 package zero
 
-// Zero returns a zero value of the specified type.
-func Zero[T any]() T {
+// Value returns a zero value of the specified type. This is the preferred form
+// avoiding stuttering when importing normally, as opposed to dot-importing.
+func Value[T any]() T {
 	var zero T
 	return zero
 }
+
+// Zero returns a zero value of the specified type. This is the preferred form
+// when dot-importing.
+func Zero[T any]() T { return Value[T]() }
