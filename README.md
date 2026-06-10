@@ -26,11 +26,11 @@ concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
 - package [`zero`](https://pkg.go.dev/github.com/thediveo/testily/zero):
   [`Zero[T]()`](https://pkg.go.dev/github.com/thediveo/testily/zero#Zero) when
   you want to be curt without explicit zero vars.
-- package [`close`](https://pkg.go.dev/github.com/thediveo/testily/close):
-  [`NewChan[T]()`](https://pkg.go.dev/github.com/thediveo/testily/close#NewChan)
+- package [`chans`](https://pkg.go.dev/github.com/thediveo/testily/chans):
+  [`Make[T]()`](https://pkg.go.dev/github.com/thediveo/testily/chans#Make)
   returns a channel for values of type `T` and a closer that closes the channel
   only once;
-  [`Once[T](ch)`](https://pkg.go.dev/github.com/thediveo/testily/close#Once)
+  [`CloseOnce[T](ch)`](https://pkg.go.dev/github.com/thediveo/testily/chans#CloseOnce)
   returns a closer for the passed channel that closes that channel only once.
 - package [`nothing`](https://pkg.go.dev/github.com/thediveo/testily/nothing):
   `interface{}` has `any`, we have `Nothing` for `struct{}`.
