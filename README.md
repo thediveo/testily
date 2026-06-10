@@ -7,6 +7,8 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/testily)](https://goreportcard.com/report/github.com/thediveo/testily)
 ![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 
+Friends don't let friends write _testing assembler_.
+
 A small collection of weird test convenience helpers with odd names, to aid in
 DRY. Preferably dot-imported as a simple DSL to make your unit tests more
 concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
@@ -24,6 +26,12 @@ concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
 - package [`zero`](https://pkg.go.dev/github.com/thediveo/testily/zero):
   [`Zero[T]()`](https://pkg.go.dev/github.com/thediveo/testily/zero#Zero) when
   you want to be curt without explicit zero vars.
+- package [`close`](https://pkg.go.dev/github.com/thediveo/testily/close):
+  [`NewChan[T]()`](https://pkg.go.dev/github.com/thediveo/testily/close#NewChan)
+  returns a channel for values of type `T` and a closer that closes the channel
+  only once;
+  [`Once[T](ch)`](https://pkg.go.dev/github.com/thediveo/testily/close#Once)
+  returns a closer for the passed channel that closes that channel only once.
 - package [`nothing`](https://pkg.go.dev/github.com/thediveo/testily/nothing):
   `interface{}` has `any`, we have `Nothing` for `struct{}`.
 
