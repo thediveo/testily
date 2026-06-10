@@ -16,7 +16,7 @@ package concur
 
 import "github.com/thediveo/testily/nothing"
 
-// Nothing should actually not be stuttering.
+// Nothing shouldn't be stuttering.
 type Nothing = nothing.Nothing
 
 // CloseWhenGone calls the passed function in its own new goroutine, closing the
