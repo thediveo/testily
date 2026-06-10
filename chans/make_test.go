@@ -12,16 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package close
+package chans
 
 import (
-	"testing"
-
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
 
-func TestClose(t *testing.T) {
-	RegisterFailHandler(Fail)
-	RunSpecs(t, "tesitly/close package")
-}
+var _ = Describe("closing channels once", func() {
+
+	It("closes only once", func() {
+		ch, closer := Make[Nothing]()
+
+		Expect(func() { closer() }).NotTo(Panic())
+		Expect(ch).To(BeClosed())
+
+		Expect(func() { closer() }).NotTo(Panic())
+		Expect(ch).To(BeClosed())
+	})
+
+	It("accepts a sending channel", func() {
+		ch := make(chan<- int)
+		closer := CloseOnce(ch)
+		Expect(func() { closer() }).NotTo(Panic())
+	})
+
+})
