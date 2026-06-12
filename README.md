@@ -10,8 +10,9 @@
 Friends don't let friends write _testing assembler_.
 
 A small collection of weird test convenience helpers with odd names, to aid in
-DRY. Preferably dot-imported as a simple DSL to make your unit tests more
-concise. A nice companion to [Ginkgo](https://github.com/onsi/gomega).
+DRY and keeping tests precise instead of eloquent. Preferably dot-imported as a
+simple DSL to make your unit tests more concise. A nice companion to
+[Ginkgo](https://github.com/onsi/gomega).
 
 - package [`tuples`](https://pkg.go.dev/github.com/thediveo/testily/tuples):
   type-safe tuples packing and unpacking:

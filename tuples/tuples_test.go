@@ -21,20 +21,53 @@ import (
 
 var _ = Describe("tuples", func() {
 
-	It("packs and unpacks pairs", func() {
-		pair := PackPair(42, "abc")
-		e1, e2 := pair.Unpack()
-		Expect(e1).To(Equal(42))
-		Expect(e2).To(Equal("abc"))
-		Expect(pair).To(Equal(PackPair(42, "abc")))
+	Context("pairs", func() {
+
+		It("packs and unpacks pairs", func() {
+			pair := PackPair(42, "abc")
+			e1, e2 := pair.Unpack()
+			Expect(e1).To(Equal(42))
+			Expect(e2).To(Equal("abc"))
+			Expect(pair).To(Equal(PackPair(42, "abc")))
+		})
+
+		It("returns the first value of a pair", func() {
+			Expect(FirstOf2(func() (int, bool) { return 42, false }())).
+				To(Equal(42))
+		})
+
+		It("returns the second value of a pair", func() {
+			Expect(SecondOf2(func() (int, bool) { return 666, true }())).
+				To(BeTrue())
+		})
+
 	})
 
-	It("packs and unpacks triples", func() {
-		triple := PackTriple(42, "abc", 66.6)
-		e1, e2, e3 := triple.Unpack()
-		Expect(e1).To(Equal(42))
-		Expect(e2).To(Equal("abc"))
-		Expect(e3).To(Equal(66.6))
+	Context("triples", func() {
+
+		It("packs and unpacks triples", func() {
+			triple := PackTriple(42, "abc", 66.6)
+			e1, e2, e3 := triple.Unpack()
+			Expect(e1).To(Equal(42))
+			Expect(e2).To(Equal("abc"))
+			Expect(e3).To(Equal(66.6))
+		})
+
+		It("returns the first value of a triple", func() {
+			Expect(FirstOf3(func() (int, bool, string) { return 42, false, "d'oh!" }())).
+				To(Equal(42))
+		})
+
+		It("returns the second value of a triple", func() {
+			Expect(SecondOf3(func() (int, bool, string) { return 666, true, "bulls&minifissures" }())).
+				To(BeTrue())
+		})
+
+		It("returns the third value of a triple", func() {
+			Expect(ThirdOf3(func() (int, bool, string) { return 666, false, "bulls&minifissures" }())).
+				To(Equal("bulls&minifissures"))
+		})
+
 	})
 
 })

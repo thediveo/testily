@@ -38,3 +38,9 @@ func Pack2[T1, T2 comparable](v1 T1, v2 T2) Tuple2[T1, T2] {
 func (t Tuple2[T1, T2]) Unpack() (T1, T2) {
 	return t.e1, t.e2
 }
+
+// FirstOf2 returns the first value from a 2-tuple.
+func FirstOf2[T1, T2 comparable](v1 T1, v2 T2) T1 { return v1 }
+
+// SecondOf2 returns the second value from a 2-tuple.
+func SecondOf2[T1, T2 comparable](v1 T1, v2 T2) T2 { return v2 }
