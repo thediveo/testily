@@ -21,7 +21,7 @@ type Nothing = nothing.Nothing
 
 // CloseWhenGone calls the passed function in its own new goroutine, closing the
 // returned (buffered) channel after the called function has returned or
-// panicked.
+// panicked. Any panic is silently discarded.
 func CloseWhenGone(fn func()) chan Nothing { return closeWhenGone(fn, nil) }
 
 func closeWhenGone(fn func(), recoverfn func(r any)) chan Nothing {
@@ -38,6 +38,12 @@ func closeWhenGone(fn func(), recoverfn func(r any)) chan Nothing {
 	return ch
 }
 
+// GoSync calls the passed function in its own new goroutine and waits for the
+// function to return or panic.
+func GoSync(fn func()) {
+	<-closeWhenGone(fn, nil)
+}
+
 // PassWhenGone calls the passed function in its own new goroutine, passing its
 // result via the returned (buffered) channel that then gets closed. If the
 // called function panics, the returned channel is closed without producing any
@@ -49,4 +55,13 @@ func PassWhenGone[T any](fn func() T) chan T {
 		ch <- fn()
 	}()
 	return ch
+}
+
+// GoSyncReturn calls the passed function in its own new goroutine, returning
+// its result. If the called function panics, the zero value is returned
+// instead.
+//
+// GoSyncReturn is a convenience function around [PassWhenGone].
+func GoSyncReturn[T any](fn func() T) T {
+	return <-PassWhenGone(fn)
 }
