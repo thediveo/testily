@@ -15,6 +15,9 @@
 package concur
 
 import (
+	"sync/atomic"
+	"time"
+
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 )
@@ -37,11 +40,35 @@ var _ = Describe("getting functions done", func() {
 
 	})
 
+	Context("GoSync", func() {
+
+		It("synchronously calls a function from a new go routine", func() {
+			var count atomic.Uint64
+			GoSync(func() {
+				time.Sleep(10 * time.Millisecond)
+				count.Add(1)
+			})
+			Expect(count.Load()).To(Equal(uint64(1)))
+		})
+
+	})
+
 	Context("PassWhenGone", func() {
 
 		It("passed the result of the concurrent function", func() {
 			awaitResult := PassWhenGone(func() int { return 42 })
 			Eventually(awaitResult).Should(Receive(Equal(42)))
+		})
+
+	})
+
+	Context("GoSyncReturn", func() {
+
+		It("returns the result of the concurrent function", func() {
+			Expect(GoSyncReturn(func() string {
+				time.Sleep(10 * time.Millisecond)
+				return "foo"
+			})).To(Equal("foo"))
 		})
 
 	})
