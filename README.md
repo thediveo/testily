@@ -4,7 +4,6 @@
 [![License](https://img.shields.io/github/license/thediveo/testily)](https://img.shields.io/github/license/thediveo/testily)
 ![build and test](https://github.com/thediveo/testily/actions/workflows/buildandtest.yaml/badge.svg?branch=master)
 ![goroutines](https://img.shields.io/badge/go%20routines-not%20leaking-success)
-[![Go Report Card](https://goreportcard.com/badge/github.com/thediveo/testily)](https://goreportcard.com/report/github.com/thediveo/testily)
 ![Coverage](https://img.shields.io/badge/Coverage-100.0%25-brightgreen)
 
 Friends don't let friends write _testing assembler_.
