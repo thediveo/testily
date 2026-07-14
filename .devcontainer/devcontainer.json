@@ -1,7 +1,7 @@
 {
     "name": "testily",
     "portsAttributes": {
-        "16062": {
+        "6060": {
             "label": "testily Go package documentation",
             "onAutoForward": "silent",
             "protocol": "http"
@@ -11,7 +11,6 @@
     "features": {
         "ghcr.io/devcontainers/features/node:2": {},
         "ghcr.io/devcontainers/features/go:1": {},
-        "ghcr.io/thediveo/devcontainer-features/goreportcard:1": {},
         "ghcr.io/thediveo/devcontainer-features/go-mod-upgrade:1": {},
         "ghcr.io/thediveo/devcontainer-features/lazygit:0": {},
         "ghcr.io/thediveo/devcontainer-features/pinact:0": {},
@@ -22,7 +21,7 @@
             "html": true            // generate coverage.html
         },
         "ghcr.io/thediveo/devcontainer-features/local-pkgsite:1": {
-            "port": "16062"
+            "port": "6060"
         }
     },
     "remoteEnv": {

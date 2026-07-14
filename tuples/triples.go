@@ -29,7 +29,7 @@ func PackTriple[T1, T2, T3 comparable](v1 T1, v2 T2, v3 T3) Triple[T1, T2, T3] {
 	return Pack3(v1, v2, v3)
 }
 
-// Pack three values into a 3-tuple.
+// Pack3 packs three values into a 3-tuple.
 func Pack3[T1, T2, T3 comparable](v1 T1, v2 T2, v3 T3) Tuple3[T1, T2, T3] {
 	return Tuple3[T1, T2, T3]{
 		e1: v1,
@@ -43,11 +43,11 @@ func (t Tuple3[T1, T2, T3]) Unpack() (T1, T2, T3) {
 	return t.e1, t.e2, t.e3
 }
 
-// FirstOf2 returns the first value from a 3-tuple.
+// FirstOf3 returns the first value from a 3-tuple.
 func FirstOf3[T1, T2, T3 comparable](v1 T1, v2 T2, v3 T3) T1 { return v1 }
 
-// SecondOf2 returns the second value from a 3-tuple.
+// SecondOf3 returns the second value from a 3-tuple.
 func SecondOf3[T1, T2, T3 comparable](v1 T1, v2 T2, v3 T3) T2 { return v2 }
 
-// ThirdOf2 returns the third value from a 3-tuple.
+// ThirdOf3 returns the third value from a 3-tuple.
 func ThirdOf3[T1, T2, T3 comparable](v1 T1, v2 T2, v3 T3) T3 { return v3 }
