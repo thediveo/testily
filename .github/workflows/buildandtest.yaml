@@ -29,4 +29,15 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Test Go packages
-        run: go test -v -p 1 -race ./...
+        run: |
+          version=$(go env GOVERSION)
+          version=${version#go}
+          major=${version%%.*}
+          remainder=${version#*.}
+          minor=${remainder%%[^0-9]*}
+
+          if [ "$major" -gt 1 ] || { [ "$major" -eq 1 ] && [ "$minor" -ge 26 ]; }; then
+            export GODEBUG=tracebacklabels=1
+          fi
+          
+          go test -v -p 1 -race ./...
