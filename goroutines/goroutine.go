@@ -137,6 +137,17 @@ func Current() Goroutine {
 	return new(string(header))
 }
 
+// ByID returns the details of go routine with the specified ID, otherwise zero
+// value details.
+func ByID(id uint64) Goroutine {
+	for _, g := range All() {
+		if g.ID != 0 && g.ID == id {
+			return g
+		}
+	}
+	return Goroutine{}
+}
+
 // new parses the specified go routine stack dump header line, returning
 // Goroutine details; it returns a zero value Goroutine if the header line
 // cannot be parsed at least in part.

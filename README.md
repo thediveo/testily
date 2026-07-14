@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/thediveo/testily)](https://img.shields.io/github/license/thediveo/testily)
 ![build and test](https://github.com/thediveo/testily/actions/workflows/buildandtest.yaml/badge.svg?branch=master)
 ![goroutines](https://img.shields.io/badge/go%20routines-not%20leaking-success)
-![Coverage](https://img.shields.io/badge/Coverage-98.1%25-brightgreen)
+![Coverage](https://img.shields.io/badge/Coverage-97.0%25-brightgreen)
 
 Friends don't let friends write _testing assembler_.
 
@@ -36,10 +36,13 @@ simple DSL to make your unit tests more concise. A nice companion to
   `interface{}` has `any`, we have `Nothing` for `struct{}`.
 - package
   [`goroutines`](https://pkg.go.dev/github.com/thediveo/testily/goroutines):
-  [`All`](https://pkg.go.dev/github.com/thediveo/testily/goroutines#All) and
+  [`All`](https://pkg.go.dev/github.com/thediveo/testily/goroutines#All),
   [`Current`](https://pkg.go.dev/github.com/thediveo/testily/goroutines#Current)
+  and [`ByID`](https://pkg.go.dev/github.com/thediveo/testily/goroutines#ByID)
   provide access to go routine information, such as ID, thread-locked state,
-  synctest bubble ID, and more.
+  synctest bubble ID, and more. This can be used especially in unit tests to
+  make sure a go routine has reached a certain state before carrying on with a
+  test.
 - package [`godebug`](https://pkg.go.dev/github.com/thediveo/testily/godebug):
   `Settings` returns the `GODEBUG=` and
   [`DefaultGODEBUG`](https://go.dev/doc/godebug#default) settings.
