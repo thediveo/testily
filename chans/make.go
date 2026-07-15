@@ -15,6 +15,7 @@
 package chans
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/thediveo/testily/nothing"
@@ -42,11 +43,24 @@ type Nothing = nothing.Nothing
 //
 //	ch, closer := Make[foo.Sprockets]()
 //
+// To create a buffered channel specify the buffer capacity.
+//
+//	ch, closer := Make[foo.Sprockets](42)
+//
 // In case the channel should act as a signaller without transporting values
 // other than the zero value after closing, use
 //
 //	ch, closer := Make[Nothing]()
-func Make[T any]() (ch chan T, closer func()) {
-	ch = make(chan T)
+func Make[T any](capacity ...int) (ch chan T, closer func()) {
+	switch len(capacity) {
+	case 0:
+		capacity = []int{0}
+	case 1:
+		break
+	default:
+		var T T
+		panic(fmt.Sprintf("chans.Make[%T](size) expects 0 or 1 arguments; found %d", T, len(capacity)))
+	}
+	ch = make(chan T, capacity[0])
 	return ch, CloseOnce(ch)
 }
