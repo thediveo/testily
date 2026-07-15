@@ -37,4 +37,16 @@ var _ = Describe("closing channels once", func() {
 		Expect(func() { closer() }).NotTo(Panic())
 	})
 
+	It("creates buffered channels", func() {
+		ch, closer := Make[Nothing](42)
+		defer closer()
+		Expect(ch).To(HaveCap(42))
+	})
+
+	It("rejects two or more args", func() {
+		Expect(func() {
+			_, _ = Make[Nothing](1, 2, 3)
+		}).To(PanicWith("chans.Make[struct {}](size) expects 0 or 1 arguments; found 3"))
+	})
+
 })
