@@ -47,10 +47,42 @@ const (
 	WaitPanicWait
 	WaitSelect
 	WaitSelectNoCases
+	WaitGCAssistWait
+	WaitGCSweepWait
+	WaitGCScavengeWait
 	WaitChanReceive
 	WaitChanSend
-	WaitSleep
 	WaitFinalizer
+	WaitForceGCIdle
+	WaitUpdateGOMAXPROCSIdle
+	WaitSemacquire
+	WaitSleep
+	WaitSyncCondWait
+	WaitSyncMutexLock
+	WaitSyncRWMutexRLock
+	WaitSyncRWMutexLock
+	WaitSyncWaitGroupWait
+	WaitTraceReaderBlocked
+	WaitForGCCycle
+	WaitGCWorkerIdle
+	WaitGCWorkerActive
+	WaitPreempted
+	WaitDebugCall
+	WaitGCMarkTermination
+	WaitStoppingTheWorld
+	WaitFlushProcCaches
+	WaitTraceGoroutineStatus
+	WaitTraceProcStatus
+	WaitPageTraceFlush
+	WaitCoroutine
+	WaitGCWeakToStrongWait
+	WaitSynctestRun
+	WaitSynctestWait
+	WaitSynctestChanReceive
+	WaitSynctestChanSend
+	WaitSynctestSelect
+	WaitSynctestWaitGroupWait
+	WaitCleanupWait
 )
 
 // Go routine status strings, including waiting reasons that are represented as
@@ -83,11 +115,42 @@ var stateDictionary = map[State]string{
 	WaitPanicWait:             "panicwait",
 	WaitSelect:                "select",
 	WaitSelectNoCases:         "select (no cases)",
+	WaitGCAssistWait:          "GC assist wait",
+	WaitGCSweepWait:           "GC sweep wait",
+	WaitGCScavengeWait:        "GC scavenge wait",
 	WaitChanReceive:           "chan receive",
 	WaitChanSend:              "chan send",
-	WaitSleep:                 "sleep",
 	WaitFinalizer:             "finalizer wait",
-	// TODO: fill in missing constants
+	WaitForceGCIdle:           "force gc (idle)",
+	WaitUpdateGOMAXPROCSIdle:  "GOMAXPROCS updater (idle)",
+	WaitSemacquire:            "semacquire",
+	WaitSleep:                 "sleep",
+	WaitSyncCondWait:          "sync.Cond.Wait",
+	WaitSyncMutexLock:         "sync.Mutex.Lock",
+	WaitSyncRWMutexRLock:      "sync.RWMutex.RLock",
+	WaitSyncRWMutexLock:       "sync.RWMutex.Lock",
+	WaitSyncWaitGroupWait:     "sync.WaitGroup.Wait",
+	WaitTraceReaderBlocked:    "trace reader (blocked)",
+	WaitForGCCycle:            "wait for GC cycle",
+	WaitGCWorkerIdle:          "GC worker (idle)",
+	WaitGCWorkerActive:        "GC worker (active)",
+	WaitPreempted:             "preempted",
+	WaitDebugCall:             "debug call",
+	WaitGCMarkTermination:     "GC mark termination",
+	WaitStoppingTheWorld:      "stopping the world",
+	WaitFlushProcCaches:       "flushing proc caches",
+	WaitTraceGoroutineStatus:  "trace goroutine status",
+	WaitTraceProcStatus:       "trace proc status",
+	WaitPageTraceFlush:        "page trace flush",
+	WaitCoroutine:             "coroutine",
+	WaitGCWeakToStrongWait:    "GC weak to strong wait",
+	WaitSynctestRun:           "synctest.Run",
+	WaitSynctestWait:          "synctest.Wait",
+	WaitSynctestChanReceive:   "chan receive (durable)",
+	WaitSynctestChanSend:      "chan send (durable)",
+	WaitSynctestSelect:        "select (durable)",
+	WaitSynctestWaitGroupWait: "sync.WaitGroup.Wait (durable)",
+	WaitCleanupWait:           "cleanup wait",
 }
 
 // Goroutine describes various properties of a particular go routine.
@@ -117,11 +180,11 @@ func All() []Goroutine {
 	for stack := range stacks.All() {
 		header, _, ok := bytes.Cut(stack, []byte("\n"))
 		if !ok {
-			return nil
+			continue
 		}
 		g := new(string(header))
 		if g.ID == 0 {
-			return nil
+			continue
 		}
 		gos = append(gos, g)
 	}
