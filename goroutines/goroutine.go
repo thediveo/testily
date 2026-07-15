@@ -148,6 +148,18 @@ func ByID(id uint64) Goroutine {
 	return Goroutine{}
 }
 
+// New runs fn in a new go routine and immediately returns the new go routine's
+// details.
+func New(fn func()) Goroutine {
+	ch := make(chan Goroutine)
+	go func() {
+		defer close(ch)
+		ch <- Current()
+		fn()
+	}()
+	return <-ch
+}
+
 // new parses the specified go routine stack dump header line, returning
 // Goroutine details; it returns a zero value Goroutine if the header line
 // cannot be parsed at least in part.

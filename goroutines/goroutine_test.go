@@ -137,20 +137,14 @@ var _ = Describe("parsing stack dumps for go routine details", Ordered, func() {
 		It("returns details about a particular go routine", func() {
 			done := make(chan struct{})
 			defer close(done)
-			idch := make(chan uint64)
 
-			go func() {
-				defer GinkgoRecover()
-				g := Current()
-				Expect(g).To(HaveField("ID", Not(BeZero())))
-				Expect(g).To(HaveField("State", Running))
-				idch <- g.ID
+			g := New(func() {
 				<-done
-			}()
+			})
 
-			var id uint64
-			Eventually(idch).Should(Receive(&id))
-			Eventually(ByID).WithArguments(id).
+			Expect(g.ID).NotTo(BeZero())
+			Expect(g).NotTo(Equal(Current()))
+			Eventually(ByID).WithArguments(g.ID).
 				ProbeEvery(2 * time.Second).ProbeEvery(10 * time.Millisecond).
 				Should(HaveField("State", WaitChanReceive))
 		})
