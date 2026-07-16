@@ -6,6 +6,13 @@ stack traces in order to extract the go routine details, such as ID,
 thread-locked status, synctest bubble ID, and (when enabled using GODEBUG=) go
 routine labels.
 
+However, this package does not(!) provide any call stack information, just go
+routine details.
+
+As generating and parsing stack dumps is not the most efficient but currently
+only available way, this package should not be used on hot paths but only in
+tests.
+
 # Go Routine Stack Dump Header Line Syntax
 
 Caveat Emptor: the following [ABNF] syntax (also [ABNF Update]) is inofficial
@@ -47,7 +54,7 @@ and can change with each minor Go release.
 	DIGIT = %x30-39
 	HEXDIGIT = DIGIT / %x41-46 / %x61-66
 
-[ABNF]: https://www.rfc-editor.org/info/rfc5234/
-[ABNF Update]: https://www.rfc-editor.org/info/rfc7405/
+[ABNF]: https://www.rfc-editor.org/info/rfc5234/ [ABNF Update]:
+https://www.rfc-editor.org/info/rfc7405/
 */
 package goroutines
