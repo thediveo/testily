@@ -27,7 +27,8 @@ simple DSL to make your unit tests more concise. A nice companion to
   [`Zero[T]()`](https://pkg.go.dev/github.com/thediveo/testily/zero#Zero) when
   you want to be curt without explicit zero vars.
 - package [`chans`](https://pkg.go.dev/github.com/thediveo/testily/chans):
-  [`Make[T]()`](https://pkg.go.dev/github.com/thediveo/testily/chans#Make)
+  [`Make[T]()`](https://pkg.go.dev/github.com/thediveo/testily/chans#Make) and
+  [`Make[T](capacity)`](https://pkg.go.dev/github.com/thediveo/testily/chans#Make)
   returns a channel for values of type `T` and a closer that closes the channel
   only once;
   [`CloseOnce[T](ch)`](https://pkg.go.dev/github.com/thediveo/testily/chans#CloseOnce)
@@ -42,7 +43,11 @@ simple DSL to make your unit tests more concise. A nice companion to
   provide access to go routine information, such as ID, thread-locked state,
   synctest bubble ID, and more. This can be used especially in unit tests to
   make sure a go routine has reached a certain state before carrying on with a
-  test.
+  test. [`New`](https://pkg.go.dev/github.com/thediveo/testily/goroutines#New)
+  and
+  [`NewBlocked`](https://pkg.go.dev/github.com/thediveo/testily/goroutines#NewBlocked)
+  create new go routines executing or about to execute the passed function,
+  immediately returning details about the created go routine.
 - package [`godebug`](https://pkg.go.dev/github.com/thediveo/testily/godebug):
   `Settings` returns the `GODEBUG=` and
   [`DefaultGODEBUG`](https://go.dev/doc/godebug#default) settings.

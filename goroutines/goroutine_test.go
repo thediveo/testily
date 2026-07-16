@@ -30,6 +30,20 @@ import (
 
 var _ = Describe("parsing stack dumps for go routine details", Ordered, func() {
 
+	It("creates a new go routine which then blocks", func() {
+		done, bedone := Make[Nothing]()
+		g, unblock := NewBlocked(func() {
+			bedone()
+		})
+		Eventually(ByID).WithArguments(g.ID).
+			Within(2*time.Second).ProbeEvery(1*time.Millisecond).
+			Should(HaveField("State", WaitChanReceive),
+				"new go routine never blocked")
+		unblock()
+		Eventually(done).Within(1 * time.Second).ProbeEvery(1 * time.Millisecond).
+			Should(BeClosed())
+	})
+
 	Context("goroutines", func() {
 
 		DescribeTable("goroutine header lines",
@@ -135,12 +149,8 @@ var _ = Describe("parsing stack dumps for go routine details", Ordered, func() {
 		})
 
 		It("returns details about a particular go routine", func() {
-			done := make(chan struct{})
-			defer close(done)
-
-			g := New(func() {
-				<-done
-			})
+			g, bedone := NewBlocked(func() {})
+			defer bedone()
 
 			Expect(g.ID).NotTo(BeZero())
 			Expect(g).NotTo(Equal(Current()))

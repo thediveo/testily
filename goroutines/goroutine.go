@@ -20,6 +20,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/thediveo/testily/chans"
 	"github.com/thediveo/testily/goroutines/stacks"
 )
 
@@ -221,6 +222,21 @@ func New(fn func()) Goroutine {
 		fn()
 	}()
 	return <-ch
+}
+
+// NewBlocked creates a new go routine which then blocks until the returned
+// unblock function is called and only then calls fn.
+func NewBlocked(fn func()) (g Goroutine, unblock func()) {
+	gch := make(chan Goroutine)
+	unblockch, unblock := chans.Make[chans.Nothing]()
+	go func() {
+		defer close(gch)
+		gch <- Current()
+		<-unblockch
+		fn()
+	}()
+	g = <-gch
+	return g, unblock
 }
 
 // new parses the specified go routine stack dump header line, returning
